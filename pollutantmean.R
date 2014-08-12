@@ -7,15 +7,6 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
         ## 'pollutant' is a character vector of length 1 indicating
         ## the name of the pollutant for which we will calculate the
         ## mean; either "sulfate" or "nitrate".
-        
-        if (pollutant == 'sulfate') {
-                col <- 2
-        } else if (pollutant == 'nitrate') {
-                col <- 3
-        } else {
-                col <- NA
-        }
-        
         ## 'id' is an integer vector indicating the monitor ID numbers
         ## to be used
         
@@ -24,8 +15,8 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
         for(i in 1:length(id)) {
                 monitor <- read.csv(files[id[i]])
                 ## Create pollutant
-                ## pollutantmean <- mean(monitor[!is.na(monitor[,col]),col])
-                pollutantvector <- append(pollutantvector,monitor[,col])
+                ## pollutantmean <- mean(monitor[!is.na(monitor[,pollutant]),pollutant])
+                pollutantvector <- append(pollutantvector,monitor[,pollutant])
         }       
         
         ## Remove NA from pollutant

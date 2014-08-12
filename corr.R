@@ -15,12 +15,12 @@ corr <- function(directory, threshold = 0){
                 ## correlations
                 if (idnobs[i,2] > threshold) {
                         monitor <- read.csv(files[i])
-                        monitor <- monitor[!is.na(monitor[,2]) & !is.na(monitor[,3]),]
-                        ## cor returns NA when there is only one observation, 
+                        monitor <- monitor[!is.na(monitor[,'sulfate']) & !is.na(monitor[,'nitrate']),]
+                        ## cor returns NA when there is only one obser0vation, 
                         ## and fail if x has length zero.
                         if (length(monitor[,1]) > 1 ) {
-                                ##cr <- c(cr,round(cor(monitor[,2], monitor[,3]),5))
-                                cr <- c(cr,cor(monitor[,2], monitor[,3]))
+                                ##cr <- c(cr,round(cor(monitor[,'sulfate'], monitor[,'nitrate']),5))
+                                cr <- c(cr,cor(monitor[,'sulfate'], monitor[,'nitrate']))
                         }
                 }
         }

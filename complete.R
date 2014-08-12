@@ -12,7 +12,7 @@ complete <- function(directory, id=1:332) {
         for(i in 1:length(id)) {
                 monitor <- read.csv(files[id[i]])
                 ## caclualte the number of complete cases (of both sulfate and nitrate)
-                nobs[i] <- length(monitor[!is.na(monitor[,2]) & !is.na(monitor[,3]),1])
+                nobs[i] <- length(monitor[!is.na(monitor[,'sulfate']) & !is.na(monitor[,'nitrate']),1])
         } 
         
         ## Return a data frame of the form:
