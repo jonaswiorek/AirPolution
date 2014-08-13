@@ -9,18 +9,23 @@ corr <- function(directory, threshold = 0){
         ## variables) required to compute the correlation between
         ## nitrate and sulfate; the default is 0
         cr <- numeric() ## create a numeric vector of correlations       
-        for (i in 1:length(idnobs[,1])) {
+        for (i in 1:nrow(idnobs)) {
                 ## calculate correlations for the monitors that meet the 
                 ## threshold requirement and add it to the vector of 
                 ## correlations
-                if (idnobs[i,2] > threshold) {
+                if (idnobs[i,'nobs'] > threshold) {
                         monitor <- read.csv(files[i])
-                        monitor <- monitor[!is.na(monitor[,'sulfate']) & !is.na(monitor[,'nitrate']),]
-                        ## cor returns NA when there is only one obser0vation, 
+                        ##monitor <- monitor[!is.na(monitor[,'sulfate']) & !is.na(monitor[,'nitrate']),]
+                        ## cor returns NA when there is only one observation, 
                         ## and fail if x has length zero.
-                        if (length(monitor[,1]) > 1 ) {
-                                ##cr <- c(cr,round(cor(monitor[,'sulfate'], monitor[,'nitrate']),5))
-                                cr <- c(cr,cor(monitor[,'sulfate'], monitor[,'nitrate']))
+                        if (nrow(monitor) > 1 ) {
+                                ## cr <- c(cr,round(cor(monitor[,'sulfate'], monitor[,'nitrate']),5))
+                                ## cr <- c(cr,cor(monitor[,'sulfate'], monitor[,'nitrate']))
+                                ## If use has the value "pairwise.complete.obs" 
+                                ## then the correlation between each pair of 
+                                ## variables is computed using all complete 
+                                ## pairs of observations on those variables.
+                                cr <- c(cr,cor(monitor[,'sulfate'], monitor[,'nitrate'], use= 'pairwise.complete.obs'))
                         }
                 }
         }
